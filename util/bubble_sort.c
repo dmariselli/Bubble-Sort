@@ -1,4 +1,7 @@
+#include <stdlib.h>
+#include <stdbool.h>
 #include "bubble_sort.h"
+#include "arrays.h"
 
 void ForwardBubbleSort(int* array, int length) {
   for (int i = 0; i < length-1; i++) {
@@ -13,9 +16,9 @@ void ForwardBubbleSort(int* array, int length) {
 }
 
 void BackwardBubbleSort(int* array, int length) {
-  for (int i = length-1; i > 0; i--) {
+  for (int i = 0; i < length-1; i++) {
     for (int j = length-1; j > i; j--) {
-      if (array[j-1] > array[j]) {
+      if (array[j] < array[j-1]) {
         int temp = array[j-1];
         array[j-1] = array[j];
         array[j] = temp;
@@ -47,6 +50,17 @@ void PingPongBubbleSort(int* array, int length) {
         }
       }
       start++;
+    }
+  }
+}
+
+void RandomBubbleSort(int* array, int length) {
+  while(!IsSorted(array, length)) {
+    int pos = random() % (length-1);
+    if (array[pos] > array[pos+1]) {
+      int temp = array[pos];
+      array[pos] = array[pos+1];
+      array[pos+1] = temp;
     }
   }
 }

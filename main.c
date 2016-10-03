@@ -10,35 +10,47 @@ double getSeconds(clock_t start, clock_t end) {
   return (double) (end - start) / CLOCKS_PER_SEC;
 }
 
-void varietySort(int* array, int n) {
+void varietySort(int n) {
+  int* arrayOne = GenerateArray(n);
+  int* arrayTwo = CopyArray(arrayOne, n);
+  int* arrayThree = CopyArray(arrayOne, n);
+  int* arrayFour = CopyArray(arrayOne, n);
+
   clock_t start = clock();
-  ForwardBubbleSort(array, n);
+  ForwardBubbleSort(arrayOne, n);
   clock_t end = clock();
-  if (IsSorted(array, n)) {
+  if (IsSorted(arrayOne, n)) {
     printf("Forward\t%d\t%g\n", n, getSeconds(start, end));
   }
 
   start = clock();
-  BackwardBubbleSort(array, n);
+  BackwardBubbleSort(arrayTwo, n);
   end = clock();
-  if (IsSorted(array, n)) {
+  if (IsSorted(arrayTwo, n)) {
     printf("Backward\t%d\t%g\n", n, getSeconds(start, end));
   }
 
   start = clock();
-  PingPongBubbleSort(array, n);
+  PingPongBubbleSort(arrayThree, n);
   end = clock();
-  if (IsSorted(array, n)) {
+  if (IsSorted(arrayThree, n)) {
     printf("PingPong\t%d\t%g\n", n, getSeconds(start, end));
+  }
+
+  start = clock();
+  RandomBubbleSort(arrayFour, n);
+  end = clock();
+  if(IsSorted(arrayFour, n)) {
+    printf("Random\t%d\t%g\n", n, getSeconds(start, end));
   }
 }
 
 int main(int argc, char **argv) {
+  srand(time(NULL));
   printf("Algorithm\tInputSize\tRunTime\n");
 
   for (int i = 10; i <= 100000; i*=10) {
-    int* array = GenerateArray(i);
-    varietySort(array, i);
+    varietySort(i);
   }
   
   return 0;

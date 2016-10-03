@@ -10,4 +10,7 @@ void PrintArray(int* array, int length);
 // Generates an array of size n with random integers
 int* GenerateArray(int n);
 
+// Returns a deep copy of the given array
+int* CopyArray(int* old, int length);
+
 #endif

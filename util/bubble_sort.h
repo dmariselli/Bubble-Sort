@@ -10,4 +10,7 @@ void BackwardBubbleSort(int* array, int length);
 // Implementation of bubble sort that bounces back and forth from the front to the end of the array and back
 void PingPongBubbleSort(int* array, int length);
 
+// Implementation of bubble sort that randomly chooses a point in the array and its neighbor to switch with
+void RandomBubbleSort(int* array, int length);
+
 #endif
