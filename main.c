@@ -6,8 +6,10 @@
 #include "util/bubble_sort.h"
 #include "util/arrays.h"
 
-double getSeconds(clock_t start, clock_t end) {
-  return (double) (end - start) / CLOCKS_PER_SEC;
+#define BILLION 1000000000L
+
+double getSeconds(struct timespec start, struct timespec end) {
+  return BILLION * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
 }
 
 void varietySort(int n) {
@@ -16,30 +18,32 @@ void varietySort(int n) {
   int* arrayThree = CopyArray(arrayOne, n);
   int* arrayFour = CopyArray(arrayOne, n);
 
-  clock_t start = clock();
+  struct timespec start, end;
+
+  clock_gettime(CLOCK_MONOTONIC, &start);
   ForwardBubbleSort(arrayOne, n);
-  clock_t end = clock();
+  clock_gettime(CLOCK_MONOTONIC, &end);
   if (IsSorted(arrayOne, n)) {
     printf("Forward\t%d\t%g\n", n, getSeconds(start, end));
   }
 
-  start = clock();
+  clock_gettime(CLOCK_MONOTONIC, &start);
   BackwardBubbleSort(arrayTwo, n);
-  end = clock();
+  clock_gettime(CLOCK_MONOTONIC, &end);
   if (IsSorted(arrayTwo, n)) {
     printf("Backward\t%d\t%g\n", n, getSeconds(start, end));
   }
 
-  start = clock();
+  clock_gettime(CLOCK_MONOTONIC, &start);
   PingPongBubbleSort(arrayThree, n);
-  end = clock();
+  clock_gettime(CLOCK_MONOTONIC, &end);
   if (IsSorted(arrayThree, n)) {
     printf("PingPong\t%d\t%g\n", n, getSeconds(start, end));
   }
 
-  start = clock();
+  clock_gettime(CLOCK_MONOTONIC, &start);
   RandomBubbleSort(arrayFour, n);
-  end = clock();
+  clock_gettime(CLOCK_MONOTONIC, &end);
   if(IsSorted(arrayFour, n)) {
     printf("Random\t%d\t%g\n", n, getSeconds(start, end));
   }
@@ -52,6 +56,6 @@ int main(int argc, char **argv) {
   for (int i = 10; i <= 100000; i*=10) {
     varietySort(i);
   }
-  
+
   return 0;
 }
