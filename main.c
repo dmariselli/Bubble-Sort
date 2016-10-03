@@ -6,41 +6,39 @@
 #include "util/bubble_sort.h"
 #include "util/arrays.h"
 
-double GetSeconds(clock_t start, clock_t end) {
+double getSeconds(clock_t start, clock_t end) {
   return (double) (end - start) / CLOCKS_PER_SEC;
 }
 
-void test(int* array, int n) {
+void varietySort(int* array, int n) {
   clock_t start = clock();
   ForwardBubbleSort(array, n);
   clock_t end = clock();
   if (IsSorted(array, n)) {
-    printf("Forward\t%d\t%g\n", n, GetSeconds(start, end));
+    printf("Forward\t%d\t%g\n", n, getSeconds(start, end));
   }
 
   start = clock();
   BackwardBubbleSort(array, n);
   end = clock();
   if (IsSorted(array, n)) {
-    printf("Backward\t%d\t%g\n", n, (double) (end - start)/CLOCKS_PER_SEC);
+    printf("Backward\t%d\t%g\n", n, getSeconds(start, end));
   }
 
   start = clock();
   PingPongBubbleSort(array, n);
   end = clock();
   if (IsSorted(array, n)) {
-    printf("PingPong\t%d\t%g\n", n, (double) (end - start)/CLOCKS_PER_SEC);
+    printf("PingPong\t%d\t%g\n", n, getSeconds(start, end));
   }
 }
 
 int main(int argc, char **argv) {
   printf("Algorithm\tInputSize\tRunTime\n");
 
-  // int n = strtol(argv[1], NULL, 10);
-
   for (int i = 10; i <= 100000; i*=10) {
     int* array = GenerateArray(i);
-    test(array, i);
+    varietySort(array, i);
   }
   
   return 0;
