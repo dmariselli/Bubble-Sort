@@ -28,9 +28,9 @@ void BackwardBubbleSort(int* array, int length) {
 }
 
 void PingPongBubbleSort(int* array, int length) {
+  int start = 0;
+  int end = length - 1;
   for (int i = 0; i < length-1; i++) {
-    int start = 0;
-    int end = length - 1;
     if (i%2 == 0) {
       for (int j = start; j < end; j++) {
         if (array[j] > array[j+1]) {
